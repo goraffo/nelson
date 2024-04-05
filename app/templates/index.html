@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto Nelson</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <div>
+        {% for producto in productos %}
+            <div class="contenedor-producto">
+                <h2>{{ producto['producto'] }}</h2>
+                <p>Impartido en: {{ producto['org'] }}</p>
+                <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
+            </div>
+        {% else %}
+            <p>No se encontraron productos.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

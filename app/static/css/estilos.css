@@ -1,0 +1,9 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.contenedor-producto {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
