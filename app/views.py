@@ -22,5 +22,5 @@ def init_views(app):
         # Formatea cada fecha de lanzamiento en el DataFrame
         df['inicio'] = df['inicio'].apply(formatear_fecha)
 
-        productos = df[['producto', 'org', 'inicio']].to_dict('records')
+        productos = df[['producto', 'org', 'inicio', 'precio', 'dominio']].to_dict('records')
         return render_template('index.html', productos=productos)

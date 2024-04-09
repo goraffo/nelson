@@ -2,8 +2,87 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+/* Estilos para la barra superior vacía */
+.barra-superior {
+  height: 50px; /* O el alto que desees */
+  background-color: white;
+}
+
+.encabezado-naranja {
+  background-color: #f90; /* El color de fondo naranja */
+  padding: 60px 0; /* El relleno superior e inferior que ya establecimos */
+  text-align: left; /* Alinea el texto a la izquierda */
+  border-bottom: 15px solid #363432; /* El borde inferior con el color que proporcionaste */
+  padding-left: 170px; /* Ajusta este valor para cambiar el espacio desde el lado izquierdo */
+}
+
+
+.encabezado-naranja h1 {
+  margin: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+  color: #363432;
+  font-size: 70px; /* Ajusta este valor según tus necesidades */
+}
+
+.encabezado-naranja p {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300; /* Condensed Regular es normalmente 300 */
+  color: white;
+  margin: 0;
+  font-size: 50px; /* Ajusta este valor según tus necesidades */
+}
+
+.contenido-principal {
+  display: flex;
+}
+
+.filtros-busqueda {
+  width: 400px; /* Ajusta al tamaño de tu banda lateral */
+  background-color: #196774;
+  padding: 20px;
+}
+
+.lista-productos {
+  flex-grow: 1;
+  padding: 20px;
+  padding: 20px 20px 20px 0;
+}
+
 .contenedor-producto {
   border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 20px; /* Aumento del padding para más espacio interno */
+  margin-bottom: 20px; /* Aumento del margin-bottom para más espacio entre contenedores */
+  background: #ffffff; /* Fondo blanco para cada contenedor */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombreado sutil */
+  max-width: 800; /* Ajusta en función del ancho de los filtros y del padding deseado */
+  margin-right: auto; /* Espacio a la derecha de cada contenedor de producto */
+  margin-left: 10px; /* Alineación automática para el margen izquierdo */
+
+  margin-top: 0; /* Asegúrate de no tener un margen superior */
+  padding: 0 0 10px 0; /* Elimina el padding general del contenedor */
+}
+
+.contenedor-producto .dominio {
+  background-color: #196774; /* Color de fondo para la banda del dominio */
+  color: white; /* Texto del dominio en color blanco */
+  padding: 5px 10px; /* Ajusta el padding para cambiar el tamaño de la banda */
+  font-size: 15px; /* Ajusta al tamaño de fuente deseado para el dominio */
+  margin: 0; /* Elimina cualquier margen exterior para la banda del dominio */
+}
+
+.contenedor-producto h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 24px; /* Reducir un poco el tamaño si es demasiado grande */
+  color: #363432;
+  padding: 0 0 0 10px; /* Añade padding alrededor del título */
+}
+
+.contenedor-producto p {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 20px; /* Ajustar el tamaño del texto si es necesario */
+  color: #363432;
+  font-weight: 400;
+  padding: 0 0 0 10px; /* Añade padding alrededor de los párrafos */
+  margin: 5px;
 }

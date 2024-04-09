@@ -5,19 +5,46 @@
     <title>Proyecto Nelson</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Open+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <h1>Lista de Productos</h1>
-    <div>
-        {% for producto in productos %}
-            <div class="contenedor-producto">
-                <h2>{{ producto['producto'] }}</h2>
-                <p>Impartido en: {{ producto['org'] }}</p>
-                <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
-            </div>
-        {% else %}
-            <p>No se encontraron productos.</p>
-        {% endfor %}
+    <!-- Barra superior vacía (aquí irán los botones más adelante) -->
+    <div class="barra-superior">
+        <p>Logo y Botones por aqui...</p>
+    </div>
+
+    <!-- Encabezado Naranja -->
+    <header class="encabezado-naranja">
+        <h1>Aprende, Actualízate y Certifícate</h1>
+        <p>Conoce todo lo puedes estudiar</p>
+    </header>
+    
+    <!-- Contenido Principal -->
+    <div class="contenido-principal">
+        <!-- Filtros de búsqueda (Aparecerán aquí más tarde) -->
+        <aside class="filtros-busqueda">
+            <p>Filtros de búsqueda próximamente...</p>
+        </aside>
+        
+        <!-- Lista de Productos -->
+        <main class="lista-productos">
+            {% for producto in productos %}
+                <article class="contenedor-producto">
+                    <div class="dominio">{{ producto['dominio'] }}</div> <!-- Banda del dominio -->
+                    <h2>{{ producto['producto'] }}</h2>
+                    <p>Impartido en: {{ producto['org'] }}</p>
+                    <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
+                    {% if producto['precio'] %}
+                        <p>Precio: {{ producto['precio'] }}</p>
+                    {% endif %}
+                </article>
+            {% else %}
+                <p>No se encontraron productos.</p>
+            {% endfor %}
+        </main>
     </div>
 </body>
 </html>
