@@ -38,10 +38,24 @@ body {
 }
 
 .filtros-busqueda {
-  width: 400px; /* Ajusta al tamaño de tu banda lateral */
-  background-color: #196774;
-  padding: 20px;
+  width: 300px; /* o el ancho que desees */
+  background-color: #196774; /* o el color de fondo que prefieras */
+  padding: 20px; /* o el padding que prefieras */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Esto crea el efecto de sombra */
+  border: 2px solid #004d40; /* Cambia #004d40 al color del borde que quieras */
+  margin-bottom: 20px; /* Esto añade espacio debajo de tu caja */
 }
+
+.filtro-dominio {
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); Sombra exterior */
+  color: whitesmoke;
+  border: 4px solid #ffffff; /* Color del borde personalizado */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
+  margin-bottom: 20px; /* Espacio debajo del filtro */
+  /* background-color: #196774; Fondo de la caja de filtro */
+}
+
 
 .lista-productos {
   flex-grow: 1;

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +9,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Open+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
+    <script>
+        function validarFormulario() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var alMenosUnoSeleccionado = false;
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    alMenosUnoSeleccionado = true;
+                }
+            });
+            if (!alMenosUnoSeleccionado) {
+                alert('Por favor, selecciona al menos un dominio.');
+                return false; // Evita que el formulario se envíe
+            }
+            return true; // Permite el envío del formulario
+        }
+
+        function resetFilters() {
+            // Desmarcar todos los checkboxes
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+
+            // Restablecer el formulario
+            var form = document.querySelector('.filtros-busqueda form');
+            form.reset();
+        }
+
+        // Asegúrate de que el DOM esté completamente cargado antes de ejecutar el código JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtiene el botón de restablecimiento por su ID
+            var resetButton = document.getElementById('resetButton');
+            
+            // Añade un event listener para el clic en el botón de restablecimiento
+            resetButton.addEventListener('click', function() {
+                resetFilters(); // Llama a la función resetFilters() cuando se hace clic en el botón
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -26,9 +66,26 @@
     <div class="contenido-principal">
         <!-- Filtros de búsqueda (Aparecerán aquí más tarde) -->
         <aside class="filtros-busqueda">
-            <p>Filtros de búsqueda próximamente...</p>
+            <!-- Botón de restablecimiento -->
+            <div class="reset-button">
+                <button id="resetButton" type="button">Restablecer</button>
+
+            </div>
+            <form method="POST">
+                <div class="filtro-dominio">
+                    <h2>Dominio</h2>
+                    {% for dom in dominios %}
+                    <div>
+                        <input type="checkbox" name="dominio" value="{{ dom }}" {% if dom in selected_dominios %} checked {% endif %}>
+                        <label for="dominio">{{ dom }}</label>
+                    </div>
+                    {% endfor %}
+                    <button type="submit">Filtrar</button>
+                </div>
+                
+            </form>
         </aside>
-        
+
         <!-- Lista de Productos -->
         <main class="lista-productos">
             {% for producto in productos %}
