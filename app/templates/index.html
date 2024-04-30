@@ -87,6 +87,17 @@
                     {% endfor %}
                     <button type="submit">Filtrar</button>
                 </div>
+
+                <div class="filtro-tipo">
+                    <h2>Tipo de Producto</h2>
+                    {% for tipo in tipos %}
+                    <div>
+                        <input type="checkbox" name="tipo" value="{{ tipo }}" {% if tipo in selected_tipos %} checked {% endif %}>
+                        <label for="tipo">{{ tipo }}</label>
+                    </div>
+                    {% endfor %}
+                    <button type="submit">Filtrar</button>
+                </div>
                 
             </form>
         </aside>
