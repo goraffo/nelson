@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,16 +25,22 @@
         }
 
         function resetFilters() {
-            // Desmarcar todos los checkboxes
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = false;
+            // Encuentra todos los elementos de entrada en el formulario
+            var inputs = document.querySelectorAll('.filtros-busqueda form input, .filtros-busqueda form select');
+            inputs.forEach(function(input) {
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                } else if (input.type === 'text' || input.tagName.toLowerCase() === 'select') {
+                    input.value = '';
+                }
             });
 
-            // Restablecer el formulario
+            // Envía el formulario después de restablecer
             var form = document.querySelector('.filtros-busqueda form');
-            form.reset();
+            form.submit();
         }
+
+
 
         // Asegúrate de que el DOM esté completamente cargado antes de ejecutar el código JavaScript
         document.addEventListener('DOMContentLoaded', function() {
