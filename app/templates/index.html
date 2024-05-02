@@ -64,7 +64,7 @@
     <!-- Encabezado Naranja -->
     <header class="encabezado-naranja">
         <h1>Aprende, Actualízate y Certifícate</h1>
-        <p>Conoce todo lo puedes estudiar</p>
+        <p>Conoce todo lo que puedes estudiar</p>
     </header>
     
     <!-- Contenido Principal -->
@@ -98,7 +98,22 @@
                     {% endfor %}
                     <button type="submit">Filtrar</button>
                 </div>
-                
+
+                <div class="filtro-precio">
+                    <h2>Rango de Precio</h2>
+                    <select name="price_range">
+                        <option value="">Selecciona un rango</option>
+                        <option value="Menos de S/. 500" {% if selected_price_range == "Menos de S/. 500" %}selected{% endif %}>Menos de S/. 500</option>
+                        <option value="S/. 500 a S/. 1,000" {% if selected_price_range == "S/. 500 a S/. 1,000" %}selected{% endif %}>S/. 500 a S/. 1,000</option>
+                        <option value="S/. 1,000 a S/. 1,500" {% if selected_price_range == "S/. 1,000 a S/. 1,500" %}selected{% endif %}>S/. 1,000 a S/. 1,500</option>
+                        <option value="S/. 1,500 a S/. 2,500" {% if selected_price_range == "S/. 1,500 a S/. 2,500" %}selected{% endif %}>S/. 1,500 a S/. 2,500</option>
+                        <option value="S/. 2,500 a S/. 4,000" {% if selected_price_range == "S/. 2,500 a S/. 4,000" %}selected{% endif %}>S/. 2,500 a S/. 4,000</option>
+                        <option value="Más de S/. 4,000" {% if selected_price_range == "Más de S/. 4,000" %}selected{% endif %}>Más de S/. 4,000</option>
+                    </select>
+                    <button type="submit">Filtrar</button>   
+                </div>
+                 
+            
             </form>
         </aside>
 
