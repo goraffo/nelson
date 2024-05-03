@@ -112,6 +112,18 @@
                     </select>
                     <button type="submit">Filtrar</button>   
                 </div>
+
+                <div class="filtro-escuela">
+                    <h2>Escuela</h2>
+                    {% for org in orgs %}
+                    <div>
+                        <input type="checkbox" name="org" value="{{ org }}" {% if org in selected_orgs %} checked {% endif %}>
+                        <label for="org">{{ org }}</label>
+                    </div>
+                    {% endfor %}
+                    <button type="submit">Filtrar</button>
+                </div>
+                
                  
             
             </form>
@@ -121,18 +133,22 @@
         <main class="lista-productos">
             {% for producto in productos %}
                 <article class="contenedor-producto">
-                    <div class="dominio">{{ producto['dominio'] }}</div> <!-- Banda del dominio -->
-                    <h2>{{ producto['producto'] }}</h2>
-                    <p>Impartido en: {{ producto['org'] }}</p>
-                    <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
-                    {% if producto['precio'] %}
-                        <p>Precio: {{ producto['precio'] }}</p>
-                    {% endif %}
+                    <!-- Envolvemos todo el contenido del producto en un enlace -->
+                    <a href="{{ producto['url_especf'] }}" target="_blank" style="text-decoration: none; color: inherit;">
+                        <div class="dominio">{{ producto['dominio'] }}</div> <!-- Banda del dominio -->
+                        <h2>{{ producto['producto'] }}</h2>
+                        <p>Impartido en: {{ producto['org'] }}</p>
+                        <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
+                        {% if producto['precio'] %}
+                            <p>Precio: {{ producto['precio'] }}</p>
+                        {% endif %}
+                    </a>
                 </article>
             {% else %}
                 <p>No se encontraron productos.</p>
             {% endfor %}
         </main>
+
     </div>
 </body>
 </html>

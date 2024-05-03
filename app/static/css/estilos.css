@@ -76,6 +76,16 @@ body {
   /* background-color: #196774; Fondo de la caja de filtro */
 }
 
+.filtro-escuela {
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); Sombra exterior */
+  color: whitesmoke;
+  border: 4px solid #ffffff; /* Color del borde personalizado */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
+  margin-bottom: 20px; /* Espacio debajo del filtro */
+  /* background-color: #196774; Fondo de la caja de filtro */
+}
+
 .lista-productos {
   flex-grow: 1;
   padding: 20px;
