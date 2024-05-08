@@ -138,14 +138,16 @@
                         <div class="dominio">{{ producto['dominio'] }}</div> <!-- Banda del dominio -->
                         <h2>{{ producto['producto'] }}</h2>
                         <p>Impartido en: {{ producto['org'] }}</p>
-                        <p>Fecha de Lanzamiento: {{ producto['inicio'] | default('No disponible') }}</p>
+                        {% if producto['inicio'] != "No disponible" %}
+                            <p>Fecha de Lanzamiento: {{ producto['inicio'] }}</p>
+                        {% endif %}
                         {% if producto['precio'] %}
                             <p>Precio: {{ producto['precio'] }}</p>
                         {% endif %}
                     </a>
                 </article>
             {% else %}
-                <p>No se encontraron productos.</p>
+                <p>No se encontraron productos académicos.</p>
             {% endfor %}
         </main>
 
