@@ -64,7 +64,16 @@
     <!-- Encabezado Naranja -->
     <header class="encabezado-naranja">
         <h1>Aprende, Actualízate y Certifícate</h1>
-        <p>Conoce todo lo que puedes estudiar</p>
+        <div class="content-container">
+            <div class="frase-destacada">
+                Conoce todo lo que puedes estudiar
+            </div>
+        </div>
+        <div class="beta-container">
+            <div class="beta-notice">
+                versión beta: actualizado hasta el {{ fecha_version }}
+            </div>
+        </div>
     </header>
     
     <!-- Contenido Principal -->
@@ -73,8 +82,7 @@
         <aside class="filtros-busqueda">
             <!-- Botón de restablecimiento -->
             <div class="reset-button">
-                <button id="resetButton" type="button">Restablecer</button>
-
+                <button id="resetButton" class="button button-reset" type="button">Restablecer</button>
             </div>
             <form method="POST">
                 <div class="filtro-dominio">
@@ -85,7 +93,7 @@
                         <label for="dominio">{{ dom }}</label>
                     </div>
                     {% endfor %}
-                    <button type="submit">Filtrar</button>
+                    <button class="button button-filter" type="submit">Filtrar</button>
                 </div>
 
                 <div class="filtro-tipo">
@@ -96,7 +104,7 @@
                         <label for="tipo">{{ tipo }}</label>
                     </div>
                     {% endfor %}
-                    <button type="submit">Filtrar</button>
+                    <button class="button button-filter" type="submit">Filtrar</button>
                 </div>
 
                 <div class="filtro-precio">
@@ -110,7 +118,7 @@
                         <option value="S/. 2,500 a S/. 4,000" {% if selected_price_range == "S/. 2,500 a S/. 4,000" %}selected{% endif %}>S/. 2,500 a S/. 4,000</option>
                         <option value="Más de S/. 4,000" {% if selected_price_range == "Más de S/. 4,000" %}selected{% endif %}>Más de S/. 4,000</option>
                     </select>
-                    <button type="submit">Filtrar</button>   
+                    <button class="button button-filter" type="submit">Filtrar</button>  
                 </div>
 
                 <div class="filtro-escuela">
@@ -121,7 +129,7 @@
                         <label for="org">{{ org }}</label>
                     </div>
                     {% endfor %}
-                    <button type="submit">Filtrar</button>
+                    <button class="button button-filter" type="submit">Filtrar</button>
                 </div>
                 
                  
@@ -135,11 +143,11 @@
                 <article class="contenedor-producto">
                     <!-- Envolvemos todo el contenido del producto en un enlace -->
                     <a href="{{ producto['url_especf'] }}" target="_blank" style="text-decoration: none; color: inherit;">
-                        <div class="dominio">{{ producto['dominio'] }}</div> <!-- Banda del dominio -->
+                        <div class="dominio">{{ producto['dominio'] }} | {{ producto['tipo'] }}</div> <!-- Banda del dominio y tipo -->
                         <h2>{{ producto['producto'] }}</h2>
                         <p>Impartido en: {{ producto['org'] }}</p>
                         {% if producto['inicio'] != "No disponible" %}
-                            <p>Fecha de Lanzamiento: {{ producto['inicio'] }}</p>
+                            <p>Inicio: {{ producto['inicio'] }}</p>
                         {% endif %}
                         {% if producto['precio'] %}
                             <p>Precio: {{ producto['precio'] }}</p>

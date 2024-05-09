@@ -1,19 +1,67 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  margin: 0; /* Asegura que no hay margen alrededor del cuerpo del documento */
+  padding: 0; /* Asegura que no hay padding alrededor del cuerpo del documento */
+  background-color: #363432; /* Color de fondo para el cuerpo */
 }
+
 
 /* Estilos para la barra superior vacía */
 .barra-superior {
   height: 50px; /* O el alto que desees */
-  background-color: white;
+}
+
+.barra-superior p {
+  color: white
 }
 
 .encabezado-naranja {
   background-color: #f90; /* El color de fondo naranja */
-  padding: 60px 0; /* El relleno superior e inferior que ya establecimos */
+  padding: 60px 0 60px 170px; /* Relleno superior e inferior, y un relleno izquierdo */
   text-align: left; /* Alinea el texto a la izquierda */
   border-bottom: 15px solid #363432; /* El borde inferior con el color que proporcionaste */
-  padding-left: 170px; /* Ajusta este valor para cambiar el espacio desde el lado izquierdo */
+}
+
+
+.frase-destacada {
+  display: inline-block; /* Hace que el elemento se ajuste al contenido */
+  background-color: #f0f0f0; /* Fondo blanco */
+  padding: 0 20px 0 0; /* Relleno para mantener consistencia vertical y horizontal */
+  text-align: left; /* Alineación del texto */
+  color: #363432; /* Color del texto */
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300;
+  font-size: 50px; /* Tamaño del texto */
+  margin-left: -170px; /* Corrige la posición debido al padding del padre */
+  padding-left: 170px; /* Alinea el contenido interno */
+  border-top-right-radius: 8px; /* Redondea la esquina superior derecha */
+  border-bottom-right-radius: 8px; /* Redondea la esquina inferior derecha */
+}
+
+/* Asegúrate de que el contenido general esté alineado adecuadamente */
+.content-container {
+  padding-left: 170px; /* Alinea el contenido interno */
+  margin: 10px 0 0 -170px;
+}
+
+.beta-notice {
+  display: inline-block; /* Hace que el elemento se ajuste al contenido */
+  background-color: #FFD700; /* Fondo blanco */
+  padding: 5px 20px 5px 0; /* Relleno para mantener consistencia vertical y horizontal */
+  text-align: left; /* Alineación del texto */
+  color: #363432; /* Color del texto */
+  font-family: 'Open Sans', sans-serif; /* Fuente del texto */
+  font-size: 20px; /* Tamaño del texto */
+  font-weight: bold; /* Negrita para que destaque */
+  margin-left: -170px; /* Corrige la posición debido al padding del padre */
+  padding-left: 170px; /* Alinea el contenido interno */
+  border-top-right-radius: 8px; /* Redondea la esquina superior derecha */
+  border-bottom-right-radius: 8px; /* Redondea la esquina inferior derecha */
+}
+
+.beta-container {
+  padding-left: 170px; /* Alinea el contenido interno */
+  margin: 10px 0 0 -170px;
 }
 
 
@@ -52,8 +100,7 @@ body {
   border: 4px solid #ffffff; /* Color del borde personalizado */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
-  margin-bottom: 20px; /* Espacio debajo del filtro */
-  /* background-color: #196774; Fondo de la caja de filtro */
+  margin: 10px 0 10px;
 }
 
 .filtro-tipo {
@@ -62,7 +109,7 @@ body {
   border: 4px solid #ffffff; /* Color del borde personalizado */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
-  margin-bottom: 20px; /* Espacio debajo del filtro */
+  margin-bottom: 10px; /* Espacio debajo del filtro */
   /* background-color: #196774; Fondo de la caja de filtro */
 }
 
@@ -72,7 +119,7 @@ body {
   border: 4px solid #ffffff; /* Color del borde personalizado */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
-  margin-bottom: 20px; /* Espacio debajo del filtro */
+  margin-bottom: 10px; /* Espacio debajo del filtro */
   /* background-color: #196774; Fondo de la caja de filtro */
 }
 
@@ -82,21 +129,21 @@ body {
   border: 4px solid #ffffff; /* Color del borde personalizado */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px 15px 25px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
-  margin-bottom: 20px; /* Espacio debajo del filtro */
+  margin-bottom: 10px; /* Espacio debajo del filtro */
   /* background-color: #196774; Fondo de la caja de filtro */
 }
 
 .lista-productos {
   flex-grow: 1;
-  padding: 20px;
-  padding: 20px 20px 20px 0;
+  padding: 3px 0 20px 10px;
+  /* padding: 20px 20px 20px 0; */
 }
 
 .contenedor-producto {
-  border: 1px solid #ccc;
+
   padding: 20px; /* Aumento del padding para más espacio interno */
   margin-bottom: 20px; /* Aumento del margin-bottom para más espacio entre contenedores */
-  background: #ffffff; /* Fondo blanco para cada contenedor */
+  background: #f0f0f0; /* Fondo blanco para cada contenedor */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombreado sutil */
   max-width: 800; /* Ajusta en función del ancho de los filtros y del padding deseado */
   margin-right: auto; /* Espacio a la derecha de cada contenedor de producto */
@@ -128,4 +175,46 @@ body {
   font-weight: 400;
   padding: 0 0 0 10px; /* Añade padding alrededor de los párrafos */
   margin: 5px;
+}
+
+.button {
+  background-color: #4CAF50; /* Green background */
+  border: none; /* No borders */
+  color: white; /* White text */
+  padding: 15px 30px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* No underlines */
+  display: inline-block; /* Inline-block */
+  font-size: 16px; /* Larger text size */
+  margin: 4px 2px; /* Some margin */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.button:hover {
+  background-color: #f90; /* Darker shade of green */
+}
+
+/* Custom classes for different buttons */
+.button-reset {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: whitesmoke;
+  text-align: center;
+  border: 4px solid #ffffff; /* Color del borde personalizado */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* superior e izquierdo/derecho a 15px, inferior a 25px */
+  width: 100%; 
+  background-color: #196774; /* Red background for reset button */
+  margin: 10px 0;
+}
+
+.button-filter {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2em;
+  font-weight: 300;
+  margin-top: 10px;
+  background-color: #008CBA; /* Blue background for filter button */
 }

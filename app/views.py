@@ -3,6 +3,7 @@ from .models import Index
 from .database import db
 import locale
 from sqlalchemy import and_
+from .utildate import extract_fecha_dinamica
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
@@ -14,6 +15,9 @@ def formatear_fecha(fecha):
 def init_views(app):
     @app.route('/', methods=['GET', 'POST'])
     def index():
+        # Llamada directa a la función que obtiene la fecha dinámicamente
+        fecha_version = extract_fecha_dinamica()
+
         # Cargar opciones de filtro independientemente de los productos
         dominios, tipos, orgs, price_ranges = load_filter_options()
 
@@ -66,7 +70,7 @@ def init_views(app):
         } for prod in productos]
 
         return render_template('index.html', productos=productos, dominios=dominios, tipos=tipos, orgs=orgs, price_ranges=price_ranges,
-                               selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range)
+                               selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version)
 
 
     @app.errorhandler(404)
