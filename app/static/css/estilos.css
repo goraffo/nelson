@@ -177,6 +177,15 @@ body {
   margin: 5px;
 }
 
+.contenedor-producto span {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 22px; /* Ajustar el tamaño del texto si es necesario */
+  color: #363432;
+  font-weight: 400;
+  padding: 0 0 20px 10px; /* Añade padding alrededor de los párrafos */
+  margin: 5px;
+}
+
 .button {
   background-color: #4CAF50; /* Green background */
   border: none; /* No borders */
