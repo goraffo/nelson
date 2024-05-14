@@ -5,15 +5,19 @@ body {
   background-color: #363432; /* Color de fondo para el cuerpo */
 }
 
+.logo {
+  height: 40px; /* Ajusta la altura según sea necesario */
+  width: auto; /* Mantiene la proporción del logo */
+  margin: 10px; /* Margen de 10px alrededor del logo */
+}
 
 /* Estilos para la barra superior vacía */
 .barra-superior {
-  height: 50px; /* O el alto que desees */
+  height: 50px; /* Ajusta la altura según sea necesario */
+  display: flex; /* Utiliza flexbox para centrar el contenido */
+  align-items: center; /* Centra verticalmente los elementos hijos */
 }
 
-.barra-superior p {
-  color: white
-}
 
 .encabezado-naranja {
   background-color: #f90; /* El color de fondo naranja */
