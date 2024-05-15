@@ -231,3 +231,10 @@ body {
   margin-top: 10px;
   background-color: #008CBA; /* Blue background for filter button */
 }
+
+.disclaimer {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: whitesmoke;
+}

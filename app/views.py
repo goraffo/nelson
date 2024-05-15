@@ -18,26 +18,28 @@ def init_views(app):
         # Llamada directa a la función que obtiene la fecha dinámicamente
         fecha_version = extract_fecha_dinamica()
 
-        # Cargar opciones de filtro independientemente de los productos
-        dominios, tipos, orgs, price_ranges = load_filter_options()
-
-        query = db.session.query(Index)
         # Recoger valores de formulario
         selected_dominios = request.form.getlist('dominio')
         selected_tipos = request.form.getlist('tipo')
         selected_orgs = request.form.getlist('org')
         selected_price_range = request.form.get('price_range')
 
+        query = db.session.query(Index)
+
         # Aplicar filtros
         query = apply_filters(query, selected_dominios, selected_tipos, selected_orgs, selected_price_range)
 
+        # Cargar opciones de filtro con la consulta filtrada
+        dominios, tipos, orgs, price_ranges = load_filter_options(query)
+
         # Carga inicial limitada de productos
-        productos = query.limit(10).all()  
+        productos = query.limit(10).all()
 
         productos = format_product_list(productos)
 
         return render_template('index.html', productos=productos, dominios=dominios, tipos=tipos, orgs=orgs, price_ranges=price_ranges,
-                               selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version)
+                            selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version)
+
 
     @app.route('/load-more-products', methods=['GET'])
     def load_more_products():
@@ -51,7 +53,7 @@ def init_views(app):
         selected_price_range = request.args.get('price_range', '')
 
         query = db.session.query(Index)
-        
+
         # Aplicar los mismos filtros que en la carga inicial
         query = apply_filters(query, selected_dominios, selected_tipos, selected_orgs, selected_price_range)
 
@@ -62,23 +64,40 @@ def init_views(app):
         # Devolver la respuesta JSON
         return jsonify(productos_json)
 
+
+
+
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('error404.html'), 404
 
-def load_filter_options():
-    dominios = [dominio[0] for dominio in db.session.query(Index.dominio).distinct().all()]
-    tipos = [tipo[0] for tipo in db.session.query(Index.tipo).distinct().all()]
-    orgs = [org[0] for org in db.session.query(Index.org).distinct().all()]
+def load_filter_options(query):
+    # Obtener dominios y sus conteos (usando id_impresion)
+    dominios = query.with_entities(Index.dominio, db.func.count(Index.id_impresion)).group_by(Index.dominio).all()
+
+    # Obtener tipos y sus conteos
+    tipos = query.with_entities(Index.tipo, db.func.count(Index.id_impresion)).group_by(Index.tipo).all()
+
+    # Obtener organizaciones y sus conteos
+    orgs = query.with_entities(Index.org, db.func.count(Index.id_impresion)).group_by(Index.org).all()
+
+    # Obtener rangos de precios y sus conteos, excluyendo los que tienen 0 productos
     price_ranges = [
-        "Menos de S/. 500",
-        "S/. 500 a S/. 1,000",
-        "S/. 1,000 a S/. 1,500",
-        "S/. 1,500 a S/. 2,500",
-        "S/. 2,500 a S/. 4,000",
-        "Más de S/. 4,000"
+        ("Menos de S/. 500", query.filter(Index.m_soles < 500).count()),
+        ("S/. 500 a S/. 1,000", query.filter(and_(Index.m_soles >= 500, Index.m_soles <= 1000)).count()),
+        ("S/. 1,000 a S/. 1,500", query.filter(and_(Index.m_soles >= 1000, Index.m_soles <= 1500)).count()),
+        ("S/. 1,500 a S/. 2,500", query.filter(and_(Index.m_soles >= 1500, Index.m_soles <= 2500)).count()),
+        ("S/. 2,500 a S/. 4,000", query.filter(and_(Index.m_soles >= 2500, Index.m_soles <= 4000)).count()),
+        ("Más de S/. 4,000", query.filter(Index.m_soles > 4000).count())
     ]
+
+    # Filtrar los rangos con conteo 0
+    price_ranges = [(range, count) for range, count in price_ranges if count > 0]
+
     return dominios, tipos, orgs, price_ranges
+
+
 
 def apply_filters(query, dominios, tipos, orgs, price_range):
     if dominios:
