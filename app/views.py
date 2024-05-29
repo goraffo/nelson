@@ -59,12 +59,10 @@ def init_views(app):
 
         productos = query.offset(offset).limit(limit).all()
 
+
         productos_json = format_product_list(productos)
 
-        # Devolver la respuesta JSON
         return jsonify(productos_json)
-
-
 
 
 
@@ -131,7 +129,7 @@ def format_product_list(productos):
         'producto': prod.producto,
         'org': prod.org,
         'inicio': formatear_fecha(prod.inicio),
-        'precio': prod.precio if prod.precio is not None else "",
+        'precio': f"{prod.m_soles:,.0f}" if prod.m_soles is not None else "Consultar",
         'm_soles': str(prod.m_soles),  # Convertir decimales
         'dominio': prod.dominio,
         'tipo': prod.tipo,

@@ -5,7 +5,7 @@
     <title>Proyecto Nelson</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Open+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Open+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Añadir jQuery -->
@@ -70,7 +70,7 @@
                         console.log('Realizando solicitud AJAX con:', queryParams);
 
                         $.get('/load-more-products?' + queryParams, function(data) {
-                            console.log('Respuesta AJAX recibida:', data);
+                            console.log('Respuesta AJAX recibida:', data);  // Imprimir los datos recibidos
                             if (data.length > 0) {
                                 data.forEach(function(product) {
                                     let productHtml = '<article class="contenedor-producto">' +
@@ -82,7 +82,8 @@
                                         productHtml += '<p>Inicio: ' + product.inicio + '</p>';
                                     }
                                     if (product.precio && product.precio !== "") {
-                                        productHtml += '<p>Precio: ' + product.precio + '</p>';
+                                        productHtml += '<p>Precio Referencial S/: ' + product.precio + '</p>';
+                                        productHtml += '<p class="disclaimer">Verifica esta información en el sitio web de la Escuela</p>';
                                     }
                                     productHtml += '</a></article>';
                                     $('.lista-productos').append(productHtml);
@@ -100,6 +101,8 @@
                             canLoadMore = true;
                             document.getElementById("loading").style.display = "none";
                         });
+
+
                     }
                 }
             };
@@ -200,7 +203,8 @@
                             <p>Inicio: {{ producto['inicio'] }}</p>
                         {% endif %}
                         {% if producto['precio'] %}
-                            <p>Precio: {{ producto['precio'] }}</p>
+                            <p>Precio Referencial S/: {{ producto['precio'] }}</p>
+                            <p class="disclaimer">Verifica esta información en el sitio web de la Escuela</p>
                         {% endif %}
                     </a>
                 </article>
@@ -208,6 +212,7 @@
                 <p class="disclaimer">No se encontraron productos académicos.</p>
             {% endfor %}
         </main>
+        
 
         <!-- Barra de carga o indicador de que se están cargando más productos -->
         <div id="loading" style="display: none;">Cargando más productos...</div>

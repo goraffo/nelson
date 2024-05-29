@@ -192,9 +192,15 @@ body {
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 22px; /* Ajustar el tamaño del texto si es necesario */
   color: #363432;
-  font-weight: 400;
+  font-weight: 600;
   padding: 0 0 20px 10px; /* Añade padding alrededor de los párrafos */
   margin: 5px;
+}
+
+.contenedor-producto .disclaimer {
+  font-size: 1em;
+  color: #196774;
+  margin-top: 0.5em;
 }
 
 .button {
