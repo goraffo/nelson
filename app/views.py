@@ -64,7 +64,13 @@ def init_views(app):
 
         return jsonify(productos_json)
 
+    @app.route('/terminos-y-condiciones')
+    def terminos_y_condiciones():
+        return render_template('terminos_y_condiciones.html')
 
+    @app.route('/politica-privacidad')
+    def politica_privacidad():
+        return render_template('politica_privacidad.html')
 
     @app.errorhandler(404)
     def page_not_found(e):

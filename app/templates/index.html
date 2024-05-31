@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Proyecto Nelson</title>
+    <title>mecertifico.en</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Open+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -217,5 +217,11 @@
         <!-- Barra de carga o indicador de que se están cargando más productos -->
         <div id="loading" style="display: none;">Cargando más productos...</div>
     </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 mecertifico.en Todos los derechos reservados.</p>
+            <p><a href="{{ url_for('terminos_y_condiciones') }}">Términos y Condiciones</a> | <a href="{{ url_for('politica_privacidad') }}">Política de Privacidad</a></p>
+        </div>
+    </footer>
 </body>
 </html>
