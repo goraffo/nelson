@@ -135,7 +135,7 @@ def format_product_list(productos):
         'producto': prod.producto,
         'org': prod.org,
         'inicio': formatear_fecha(prod.inicio),
-        'precio': f"{prod.m_soles:,.0f}" if prod.m_soles is not None else "Consultar",
+        'precio': f"{prod.m_soles:,.0f}" if prod.m_soles is not None else "",
         'm_soles': str(prod.m_soles),  # Convertir decimales
         'dominio': prod.dominio,
         'tipo': prod.tipo,

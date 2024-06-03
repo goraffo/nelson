@@ -1,8 +1,14 @@
-/* legales.css */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0; /* Asegura que no hay margen alrededor del cuerpo del documento */
+  padding: 0; /* Asegura que no hay padding alrededor del cuerpo del documento */
+  background-color: #363432; /* Color de fondo para el cuerpo */
+  color: whitesmoke;
+}
 
 /* Estilos para el encabezado de las páginas legales */
 header {
-  background-color: #f4f4f4;
+  background-color: #196774;
   padding: 20px;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -10,7 +16,7 @@ header {
 
 header h1 {
   margin: 0;
-  color: #333;
+  color: whitesmoke;
 }
 
 /* Estilos para el contenido de las páginas legales */
@@ -18,7 +24,7 @@ header h1 {
   padding: 20px;
   font-family: 'Open Sans', sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: whitesmoke;
 }
 
 /* Estilos específicos para los enlaces en el footer de las páginas legales */
