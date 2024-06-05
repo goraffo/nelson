@@ -27,7 +27,7 @@ body {
 
 
 .encabezado-naranja {
-  background-color: #f90; /* El color de fondo naranja */
+  background-color: #F29100; /* El color de fondo naranja */
   padding: 60px 0 60px 170px; /* Relleno superior e inferior, y un relleno izquierdo */
   text-align: left; /* Alinea el texto a la izquierda */
   border-bottom: 15px solid #363432; /* El borde inferior con el color que proporcionaste */
