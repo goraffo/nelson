@@ -5,7 +5,10 @@ import locale
 from sqlalchemy import and_
 from .utildate import extract_fecha_dinamica
 
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+try:
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+except locale.Error:
+    locale.setlocale(locale.LC_TIME, 'C')
 
 def formatear_fecha(fecha):
     if fecha is None:
