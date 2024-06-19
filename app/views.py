@@ -1,25 +1,16 @@
 from flask import render_template, request, jsonify
 from .models import Index
 from .database import db
-import locale
+
 from sqlalchemy import and_
 from .utildate import extract_fecha_dinamica, formatear_fecha_en_espanol
 
-try:
-    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-except locale.Error:
-    locale.setlocale(locale.LC_TIME, 'C')
-
-def formatear_fecha(fecha):
-    if fecha is None:
-        return "No disponible"
-    return fecha.strftime('%d de %B de %Y')
 
 def init_views(app):
     @app.route('/', methods=['GET', 'POST'])
     def index():
         # Llamada directa a la función que obtiene la fecha dinámicamente
-        fecha_version = extract_fecha_dinamica()
+        fecha_version = formatear_fecha_en_espanol(extract_fecha_dinamica())
 
         # Recoger valores de formulario
         selected_dominios = request.form.getlist('dominio')
