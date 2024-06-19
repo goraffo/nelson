@@ -17,6 +17,9 @@ def extract_fecha_dinamica():
     return "Fecha no disponible"
 
 MESES = {
+    'january': 'Enero', 'february': 'Febrero', 'march': 'Marzo', 'april': 'Abril',
+    'may': 'Mayo', 'june': 'Junio', 'july': 'Julio', 'august': 'Agosto',
+    'september': 'Septiembre', 'october': 'Octubre', 'november': 'Noviembre', 'december': 'Diciembre',
     'enero': 'Enero', 'febrero': 'Febrero', 'marzo': 'Marzo', 'abril': 'Abril',
     'mayo': 'Mayo', 'junio': 'Junio', 'julio': 'Julio', 'agosto': 'Agosto',
     'septiembre': 'Septiembre', 'octubre': 'Octubre', 'noviembre': 'Noviembre', 'diciembre': 'Diciembre'
