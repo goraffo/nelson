@@ -3,7 +3,7 @@ from .models import Index
 from .database import db
 import locale
 from sqlalchemy import and_
-from .utildate import extract_fecha_dinamica
+from .utildate import extract_fecha_dinamica, formatear_fecha_en_espanol
 
 try:
     locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
@@ -137,7 +137,7 @@ def format_product_list(productos):
     return [{
         'producto': prod.producto,
         'org': prod.org,
-        'inicio': formatear_fecha(prod.inicio),
+        'inicio': formatear_fecha_en_espanol(prod.inicio),
         'precio': f"{prod.m_soles:,.0f}" if prod.m_soles is not None else "",
         'm_soles': str(prod.m_soles),  # Convertir decimales
         'dominio': prod.dominio,

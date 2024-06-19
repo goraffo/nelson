@@ -16,4 +16,17 @@ def extract_fecha_dinamica():
         return fecha
     return "Fecha no disponible"
 
-# Esta función ahora interpreta correctamente la fecha en el formato especificado.
+MESES = {
+    'enero': 'Enero', 'febrero': 'Febrero', 'marzo': 'Marzo', 'abril': 'Abril',
+    'mayo': 'Mayo', 'junio': 'Junio', 'julio': 'Julio', 'agosto': 'Agosto',
+    'septiembre': 'Septiembre', 'octubre': 'Octubre', 'noviembre': 'Noviembre', 'diciembre': 'Diciembre'
+}
+
+
+def formatear_fecha_en_espanol(fecha):
+    if fecha is None:
+        return "No disponible"
+    dia = fecha.strftime('%d')
+    mes = MESES[fecha.strftime('%B').lower()]
+    año = fecha.strftime('%Y')
+    return f"{dia} de {mes} de {año}"
