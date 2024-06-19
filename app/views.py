@@ -1,7 +1,6 @@
 from flask import render_template, request, jsonify
 from .models import Index
 from .database import db
-
 from sqlalchemy import and_
 from .utildate import extract_fecha_dinamica, formatear_fecha_en_espanol
 
