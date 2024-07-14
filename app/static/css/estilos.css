@@ -9,6 +9,7 @@ body {
   height: 40px; /* Ajusta la altura según sea necesario */
   width: auto; /* Mantiene la proporción del logo */
   margin: 10px; /* Margen de 10px alrededor del logo */
+  cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el logo */
 }
 
 /* Estilos para la barra superior vacía */

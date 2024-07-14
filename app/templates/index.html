@@ -45,6 +45,12 @@
             var resetButton = document.getElementById('resetButton');
             resetButton.addEventListener('click', function() {
                 resetFilters();
+                
+            });
+
+            var logo = document.getElementById('logo'); // Obtener el logo por ID
+            logo.addEventListener('click', function() {
+                resetFilters();
             });
 
             let canLoadMore = true;
@@ -114,7 +120,7 @@
 <body>
     <!-- Barra superior vacía (aquí irán los botones más adelante) -->
     <div class="barra-superior">
-        <img src="{{ url_for('static', filename='img/Logo-certifica-blanco.png') }}" alt="Logo" class="logo">
+        <img id="logo" src="{{ url_for('static', filename='img/Logo-certifica-blanco.png') }}" alt="Logo" class="logo">
     </div>
 
     <!-- Encabezado Naranja -->
