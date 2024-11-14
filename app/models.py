@@ -1,7 +1,7 @@
 from .database import db
 
 class Index(db.Model):
-    __tablename__ = 'index241024'
+    __tablename__ = 'index241111'
 
     id_impresion = db.Column(db.Integer, primary_key=True)
     org = db.Column(db.String(255), nullable=False)
