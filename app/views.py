@@ -3,6 +3,7 @@ from .models import Index
 from .database import db
 from sqlalchemy import and_
 from .utildate import extract_fecha_dinamica, formatear_fecha_en_espanol
+import os
 
 
 def init_views(app):
@@ -30,8 +31,10 @@ def init_views(app):
 
         productos = format_product_list(productos)
 
+        ga_tracking_id = os.getenv('GA_TRACKING_ID')
+
         return render_template('index.html', productos=productos, dominios=dominios, tipos=tipos, orgs=orgs, price_ranges=price_ranges,
-                            selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version)
+                            selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version, ga_tracking_id=ga_tracking_id)
 
 
     @app.route('/load-more-products', methods=['GET'])
