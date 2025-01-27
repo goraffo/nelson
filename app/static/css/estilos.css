@@ -45,10 +45,46 @@ body {
   font-weight: 300;
   font-size: 50px; /* Tamaño del texto */
   margin-left: -170px; /* Corrige la posición debido al padding del padre */
-  padding-left: 170px; /* Alinea el contenido interno */
+  padding-left: 150px; /* Alinea el contenido interno */
   border-top-right-radius: 8px; /* Redondea la esquina superior derecha */
   border-bottom-right-radius: 8px; /* Redondea la esquina inferior derecha */
 }
+
+
+/* Ajustes específicos para la barra de búsqueda */
+.frase-destacada form {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 0 10px; /* Espaciado interno */
+  height: 50px; /* Altura consistente */
+}
+
+.frase-destacada input[type="text"] {
+  flex: 1;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  color: #363432;
+  background-color: transparent;
+  min-width: 340px; /* Asegura que el input sea suficientemente ancho */
+}
+
+
+.frase-destacada button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.frase-destacada button img {
+  height: 30px;
+  width: 30px;
+}
+
 
 /* Asegúrate de que el contenido general esté alineado adecuadamente */
 .content-container {

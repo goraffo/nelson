@@ -4,61 +4,112 @@ from .database import db
 from sqlalchemy import and_
 from .utildate import extract_fecha_dinamica, formatear_fecha_en_espanol
 import os
+from .search import realizar_busqueda
 
 
 def init_views(app):
     @app.route('/', methods=['GET', 'POST'])
     def index():
-        # Llamada directa a la función que obtiene la fecha dinámicamente
+    # Llamada directa a la función que obtiene la fecha dinámica
         fecha_version = formatear_fecha_en_espanol(extract_fecha_dinamica())
 
-        # Recoger valores de formulario
+        # Recoger valores del formulario
         selected_dominios = request.form.getlist('dominio')
         selected_tipos = request.form.getlist('tipo')
         selected_orgs = request.form.getlist('org')
         selected_price_range = request.form.get('price_range')
+        search_term = request.form.get('search_term', '').strip()
 
+
+
+        # Crear la consulta base
         query = db.session.query(Index)
+
 
         # Aplicar filtros
         query = apply_filters(query, selected_dominios, selected_tipos, selected_orgs, selected_price_range)
 
-        # Cargar opciones de filtro con la consulta filtrada
-        dominios, tipos, orgs, price_ranges = load_filter_options(query)
 
-        # Carga inicial limitada de productos
-        productos = query.limit(10).all()
+        # Aplicar búsqueda
+        productos = realizar_busqueda(query, search_term)
 
+
+        # Calcular opciones de filtro basadas en los productos filtrados
+        if isinstance(productos, list):
+            dominios, tipos, orgs, price_ranges = calculate_filter_options_from_list(productos)
+        else:
+            dominios, tipos, orgs, price_ranges = load_filter_options(query)
+
+        # Limitar manualmente si la búsqueda devolvió una lista
+        if isinstance(productos, list):
+            productos = productos[:10]  # Limitar a los primeros 10 resultados
+
+
+        # Formatear los productos para la plantilla
         productos = format_product_list(productos)
 
         ga_tracking_id = os.getenv('GA_TRACKING_ID')
 
-        return render_template('index.html', productos=productos, dominios=dominios, tipos=tipos, orgs=orgs, price_ranges=price_ranges,
-                            selected_dominios=selected_dominios, selected_tipos=selected_tipos, selected_orgs=selected_orgs, selected_price_range=selected_price_range, fecha_version=fecha_version, ga_tracking_id=ga_tracking_id)
+
+
+
+        return render_template(
+            'index.html',
+            productos=productos,
+            dominios=dominios,
+            tipos=tipos,
+            orgs=orgs,
+            price_ranges=price_ranges,
+            selected_dominios=selected_dominios,
+            selected_tipos=selected_tipos,
+            selected_orgs=selected_orgs,
+            selected_price_range=selected_price_range,
+            search_term=search_term,
+            fecha_version=fecha_version,
+            ga_tracking_id=ga_tracking_id
+        )
+
 
 
     @app.route('/load-more-products', methods=['GET'])
     def load_more_products():
         offset = int(request.args.get('offset', 0))
-        limit = 10  # Define cuántos productos cargar por solicitud
+        limit = 10  # Número de productos por solicitud
 
         # Recuperar los parámetros de filtro desde los argumentos de la solicitud
-        selected_dominios = request.args.get('dominio').split(',') if request.args.get('dominio') else []
-        selected_tipos = request.args.get('tipo').split(',') if request.args.get('tipo') else []
-        selected_orgs = request.args.get('org').split(',') if request.args.get('org') else []
+        selected_dominios = request.args.get('dominio', '').split(',') if request.args.get('dominio') else []
+        selected_tipos = request.args.get('tipo', '').split(',') if request.args.get('tipo') else []
+        selected_orgs = request.args.get('org', '').split(',') if request.args.get('org') else []
         selected_price_range = request.args.get('price_range', '')
+        search_term = request.args.get('search_term', '').strip()
 
+
+
+        # Crear la consulta base
         query = db.session.query(Index)
 
-        # Aplicar los mismos filtros que en la carga inicial
+        # Aplicar los filtros recibidos
         query = apply_filters(query, selected_dominios, selected_tipos, selected_orgs, selected_price_range)
 
-        productos = query.offset(offset).limit(limit).all()
+        # Aplicar búsqueda si hay un término
+        productos = realizar_busqueda(query, search_term)
 
+        # Manejar según sea lista o consulta SQLAlchemy
+        if isinstance(productos, list):
+            # Si es una lista, aplicar offset y límite manualmente
+            productos = productos[offset:offset + limit]
+        else:
+            # Si es una consulta SQLAlchemy, usar offset y límite propios de SQL
+            productos = productos.offset(offset).limit(limit).all()
 
+        # Formatear los productos para enviarlos al frontend
         productos_json = format_product_list(productos)
 
+
+
         return jsonify(productos_json)
+
+
 
     @app.route('/terminos-y-condiciones')
     def terminos_y_condiciones():
@@ -137,3 +188,39 @@ def format_product_list(productos):
         'tipo': prod.tipo,
         'url_especf': prod.url_especf
     } for prod in productos]
+
+def calculate_filter_options_from_list(productos):
+    """
+    Calcula las opciones de filtro y sus conteos a partir de una lista de productos.
+    :param productos: Lista de productos filtrados.
+    :return: dominios, tipos, orgs, price_ranges
+    """
+    from collections import Counter
+
+    # Contar dominios
+    dominios_counter = Counter(prod.dominio for prod in productos if prod.dominio)
+    dominios = [(dom, count) for dom, count in dominios_counter.items()]
+
+    # Contar tipos
+    tipos_counter = Counter(prod.tipo for prod in productos if prod.tipo)
+    tipos = [(tipo, count) for tipo, count in tipos_counter.items()]
+
+    # Contar organizaciones
+    orgs_counter = Counter(prod.org for prod in productos if prod.org)
+    orgs = [(org, count) for org, count in orgs_counter.items()]
+
+    # Contar rangos de precio
+    price_ranges = [
+        ("Menos de S/. 500", sum(1 for prod in productos if prod.m_soles and prod.m_soles < 500)),
+        ("S/. 500 a S/. 1,000", sum(1 for prod in productos if prod.m_soles and 500 <= prod.m_soles <= 1000)),
+        ("S/. 1,000 a S/. 1,500", sum(1 for prod in productos if prod.m_soles and 1000 <= prod.m_soles <= 1500)),
+        ("S/. 1,500 a S/. 2,500", sum(1 for prod in productos if prod.m_soles and 1500 <= prod.m_soles <= 2500)),
+        ("S/. 2,500 a S/. 4,000", sum(1 for prod in productos if prod.m_soles and 2500 <= prod.m_soles <= 4000)),
+        ("Más de S/. 4,000", sum(1 for prod in productos if prod.m_soles and prod.m_soles > 4000)),
+    ]
+
+    # Filtrar los rangos con conteo 0
+    price_ranges = [(range, count) for range, count in price_ranges if count > 0]
+
+    return dominios, tipos, orgs, price_ranges
+
